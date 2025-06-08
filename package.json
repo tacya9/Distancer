@@ -1,0 +1,26 @@
+{
+  "name": "distancer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "scss": "sass --watch styles/index.scss styles/index.css",
+    "serve": "npx http-server",
+    "dev": "npm-run-all --parallel serve scss"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tacya9/Distancer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tacya9/Distancer/issues"
+  },
+  "homepage": "https://github.com/tacya9/Distancer#readme",
+  "description": "",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.87.0"
+  }
+}
