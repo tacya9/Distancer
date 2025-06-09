@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "distancer-draft"
-  }
+    "default": "distancer-4b3cf",
+    "distancer-4b3cf": "distancer-4b3cf"
+  },
+  "targets": {},
+  "etags": {}
 }
