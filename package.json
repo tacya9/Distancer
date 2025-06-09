@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "scss": "sass --watch styles/index.scss styles/index.css",
+    "scss": "sass --watch public/styles/index.scss public/styles/index.css",
     "serve": "npx http-server",
     "dev": "npm-run-all --parallel serve scss"
   },

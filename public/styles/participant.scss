@@ -33,6 +33,10 @@
 	align-self: start;
 	line-height: 42px;
 	padding-top: 3px;
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 .c-participant__speed {
 	font-size: 46px;
@@ -43,13 +47,14 @@
 	position: relative;
 	line-height: 64px;
 	bottom: -1px;
+	padding-right: 30px;
 
 	&::before {
 		content: '\f625';
 		font-family: 'Font Awesome 6 Free';
 		font-size: 18px;
 		position: absolute;
-		right: -25px;
+		right: 6px;
 		top: 16px;
 		line-height: 1;
 	}
@@ -61,7 +66,7 @@
 		font-weight: bold;
 		position: absolute;
 		bottom: 15px;
-		right: -32px;
+		right: -2px;
 		line-height: 1;
 	}
 }
