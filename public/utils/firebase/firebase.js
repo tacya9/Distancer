@@ -6,14 +6,24 @@ export const getDistancerIdRef = (distancerId) => `${FIREBASE_ID_SET}/${distance
 export const getParticipantRef = (distancerId, participantName) => `${FIREBASE_ID_SET}/${distancerId}/participant/${participantName}`;
 export const getLastUpdateRef = (distancerId) => `${FIREBASE_ID_SET}/${distancerId}/lastUpdate`;
 
+// const firebaseConfig = {
+//     apiKey: "AIzaSyCSw34wRh8vuWk34JC4rmJau_I5yB9ey08",
+//     authDomain: "distancer-draft.firebaseapp.com",
+//     projectId: "distancer-draft",
+//     storageBucket: "distancer-draft.firebasestorage.app",
+//     messagingSenderId: "644445501550",
+//     appId: "1:644445501550:web:d7c25e407faf4635404e7f",
+//     databaseURL: "https://distancer-draft-default-rtdb.europe-west1.firebasedatabase.app"
+// };
+
 const firebaseConfig = {
-    apiKey: "AIzaSyCSw34wRh8vuWk34JC4rmJau_I5yB9ey08",
-    authDomain: "distancer-draft.firebaseapp.com",
-    projectId: "distancer-draft",
-    storageBucket: "distancer-draft.firebasestorage.app",
-    messagingSenderId: "644445501550",
-    appId: "1:644445501550:web:d7c25e407faf4635404e7f",
-    databaseURL: "https://distancer-draft-default-rtdb.europe-west1.firebasedatabase.app"
+    apiKey: "AIzaSyClTP8GkjmYRYv0vdARiWh6Gmdt2Ue_BZQ",
+    authDomain: "distancer-4b3cf.firebaseapp.com",
+    projectId: "distancer-4b3cf",
+    storageBucket: "distancer-4b3cf.firebasestorage.app",
+    messagingSenderId: "341906421047",
+    appId: "1:341906421047:web:5f8260f1bfd4e2870f16b2",
+    measurementId: "G-PE0K93QP5Y"
 };
 
 let lastPosTimestamp = 0;

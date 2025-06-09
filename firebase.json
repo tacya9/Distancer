@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "distancer",
     "public": "public",
     "ignore": [
       "firebase.json",
