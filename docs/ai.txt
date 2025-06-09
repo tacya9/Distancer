@@ -1,0 +1,92 @@
+Давай сделаем HTTP-сервер на ESP32, который сохраняет данные и отдаёт их по такому принципу:
+устройство 1 отправляет жсон:
+{
+	"name": "Device 1",
+	"icon": "car",
+	"color": "#000000",
+	"current": {
+		"accuracy": 7,
+		"altitude": 200,
+		"latitude": 54.689792,
+		"longitude": 25.280512,
+		"speed": 0,
+		"timestamp": 1747834342391
+	},
+	"prev": {
+		"accuracy": 7,
+		"altitude": 200,
+		"latitude": 54.689792,
+		"longitude": 25.280512,
+		"speed": 0,
+		"timestamp": 1747834337391
+	}
+}
+
+он сохраняется на сервере с другими подобными данными в таком виде:
+{
+	"Device 1": {
+        "name": "Device 1",
+        "icon": "car",
+        "color": "#000000",
+        "current": {
+            "accuracy": 7,
+            "altitude": 200,
+            "latitude": 54.689792,
+            "longitude": 25.280512,
+            "speed": 0,
+            "timestamp": 1747834342391
+        },
+        "prev": {
+            "accuracy": 7,
+            "altitude": 200,
+            "latitude": 54.689792,
+            "longitude": 25.280512,
+            "speed": 0,
+            "timestamp": 1747834337391
+        }
+    },
+	"Device 2": {
+        "name": "Device 2",
+        "icon": "bike",
+        "color": "#ffffff",
+        "current": {
+            "accuracy": 7,
+            "altitude": 200,
+            "latitude": 55.689792,
+            "longitude": 25.280512,
+            "speed": 0,
+            "timestamp": 1747834342000
+        },
+        "prev": {
+            "accuracy": 7,
+            "altitude": 200,
+            "latitude": 54.689792,
+            "longitude": 25.280512,
+            "speed": 0,
+            "timestamp": 1747834337000
+        }
+    },
+    "Device 3": {
+        "name": "Device 3",
+        "icon": "train",
+        "color": "#555555",
+        "current": {
+            "accuracy": 7,
+            "altitude": 200,
+            "latitude": 54.689792,
+            "longitude": 24.280512,
+            "speed": 0,
+            "timestamp": 1747834342500
+        },
+        "prev": {
+            "accuracy": 7,
+            "altitude": 200,
+            "latitude": 54.689792,
+            "longitude": 25.280512,
+            "speed": 0,
+            "timestamp": 1747834337500
+        }
+    },
+}
+
+и дальше по запросу любое из этих подключенных к вайфай точке устройств получает весь набор данных, весь объект данных с позициями всех устройств
