@@ -144,7 +144,8 @@ export function getSortedParticipants(distancer) {
     });
     participants.sort((a, b) => a.name.localeCompare(b.name));
     participants.forEach(participant => {
-        const predictCoordinates = getPredictCoordinates({
+        const hasPrevCoords = () => Object.keys(participant.prev).length > 0;
+        const predictCoordinates = hasPrevCoords() ? getPredictCoordinates({
             prevTimeMs: participant.prev.timestamp,
             prevCoords: {
                 latitude: participant.prev.latitude,
@@ -156,13 +157,15 @@ export function getSortedParticipants(distancer) {
                 longitude: participant.current.longitude
             },
             futureTimeMs: syncTimestamp
-        });
+        }) : {
+            latitude: participant.current.latitude,
+            longitude: participant.current.longitude
+        };
 
         participant.sync.timestamp = syncTimestamp;
         participant.sync.latitude = +predictCoordinates.latitude.toFixed(6);
         participant.sync.longitude = +predictCoordinates.longitude.toFixed(6);
     })
-
 
     const head = participants[0];
     const slaves = participants.slice(1);
