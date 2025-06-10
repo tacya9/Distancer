@@ -32,7 +32,7 @@ export class Participant {
         this.current = {
             latitude: current.latitude ? current.latitude : null,
             longitude: current.longitude ? current.longitude : null,
-            speed: current.speed,
+            speed: current.speed ? current.speed : null,
             altitude: current.altitude ? current.altitude : null,
             accuracy: current.accuracy ? current.accuracy : null,
             timestamp: current.timestamp ? current.timestamp : null,

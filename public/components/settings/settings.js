@@ -1,10 +1,19 @@
-import {getSettingFromLS, setSettingsToLS} from "../../utils/helpers.js";
+import {
+    getSettingFromLS,
+    setSettingsToLS,
+    setIsActiveToLS,
+    updateViewFromLS,
+    clearOutdatedIds
+} from "../../utils/helpers.js";
 import {firebaseDB, getLastUpdateRef, getParticipantRef} from "../../utils/firebase/firebase.js";
 import {LS_PROP, Participant} from "../../utils/constants.js";
 
 export default class SettingsForm {
-    constructor(settings) {
+    constructor(props) {
+        const { settings, onSubmitCallback } = props;
+
         this.settings = settings; // [{propName, type, label}, ...]
+        this.onSubmitCallback = onSubmitCallback;
         this.element = this.createForm();
     }
 
@@ -61,6 +70,8 @@ export default class SettingsForm {
             firebaseDB.ref(getLastUpdateRef(getSettingFromLS(LS_PROP.DISTANCER_ID))).set(+new Date());
 
             this.runHandlers();
+
+            if (typeof this.onSubmitCallback === 'function') this.onSubmitCallback();
         })
 
         this.runHandlers();
