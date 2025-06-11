@@ -1,7 +1,29 @@
-import {Participant} from "../../utils/constants.js";
+import {LS_PROP, Participant} from "../../utils/constants.js";
+import {firebaseDB, getLastUpdateRef} from "../../utils/firebase/firebase.js";
+import {getSettingFromLS} from "../../utils/helpers.js";
+
+export function sendDataToFirebase(ref, dataToSend, callback) {
+    const distancerId = getSettingFromLS(LS_PROP.DISTANCER_ID);
+        
+    if (firebaseDB) {
+        firebaseDB.ref(ref).set(dataToSend)
+            .then(() => {
+                console.log('Данные GPS отправлены:', dataToSend);
+                firebaseDB.ref(getLastUpdateRef(distancerId)).set(+new Date());
+            })
+            .catch(error => console.error('Ошибка отправки данных:', error))
+            .finally(callback);
+    } else {
+        console.warn('Firebase Realtime Database не инициализирован.');
+    }
+}
 
 export function getSortedParticipants(distancer) {
     const participantObj = distancer.participant;
+    const myParticipantName = getSettingFromLS(LS_PROP.PARTICIPANT_NAME);
+    const participantNames = Object.keys(participantObj).filter(key => key === myParticipantName || participantObj[key].isActive);
+
+    if (!participantNames.length) return [];
         //  создать тестовые данные с расстояниями между С-50-B-100-A и скоростью 100км/ч с разными timestamp
         //            A.c
         //            A.p
@@ -119,29 +141,31 @@ export function getSortedParticipants(distancer) {
     //         }
     //     }
     // }
-
-    // console.log('participantObj', JSON.stringify(participantObj));
+    
     let syncTimestamp = 0;
-    const participants = Object.keys(participantObj).map(key => {
-        if (participantObj[key].current?.timestamp > syncTimestamp) syncTimestamp = participantObj[key].current.timestamp;
+    const participants = participantNames.map(name => {
+        if (participantObj[name].current?.timestamp > syncTimestamp) syncTimestamp = participantObj[name].current.timestamp;
 
         return new Participant({
-            name: key,
-            icon: participantObj[key].icon,
+            name: name,
+            isActive: participantObj[name].isActive,
+            icon: participantObj[name].icon,
+            color: participantObj[name].color,
             distToHead: 0,
             distance: null,
-            current: participantObj[key].current,
-            prev: participantObj[key].prev,
+            current: participantObj[name].current,
+            prev: participantObj[name].prev,
             sync: {
                 latitude: null,
                 longitude: null,
-                speed: participantObj[key].current.speed,
-                altitude: participantObj[key].current.altitude,
-                accuracy: participantObj[key].current.accuracy,
+                speed: participantObj[name].current.speed,
+                altitude: participantObj[name].current.altitude,
+                accuracy: participantObj[name].current.accuracy,
                 timestamp: 0,
             }
         })
     });
+
     participants.sort((a, b) => a.name.localeCompare(b.name));
     participants.forEach(participant => {
         const hasPrevCoords = () => Object.keys(participant.prev).length > 0;
@@ -188,16 +212,16 @@ export function getSortedParticipants(distancer) {
 }
 
 export function getParticipantInfos(participants) {
-    console.log('participants', participants);
-
     return participants.map((participant, index) => {
         const calcDistance = index > 0 ? participant.distToHead - participants[index - 1].distToHead : undefined;
 
         return {
+            isActive: participant.isActive,
             distance: calcDistance >= 0 ? calcDistance : '---',
             minDistance: getSafeDistance(participant.current?.speed),
             maxDistance: getMaxDistance(participant.current?.speed),
             icon: participant.icon,
+            color: participant.color,
             name: participant.name,
             accuracy: participant.current?.accuracy,
             speed: participant.current?.speed >= 0 ? Math.round(participant.current.speed * 3.6) : '---',
@@ -223,7 +247,8 @@ function getSafeDistance(speedMps) {
 
 function getMaxDistance(speedMps) {
     if (speedMps >= 0) {
-        const RATIO = 2; // секунды
+        // const RATIO = 2;
+        const RATIO = getSettingFromLS(LS_PROP.MAX_DISTANCE_RATIO);
         const MIN_DISTANCE = 20;
         const distance = getSafeDistance(speedMps) * RATIO;
 

@@ -21,6 +21,12 @@ const settingsForm = new SettingsForm({
             label: 'Icon'
         },
         {
+            propName: LS_PROP.PARTICIPANT_COLOR,
+            type: 'color',
+            label: 'Color',
+            defaultValue: '#ffffff'
+        },
+        {
             propName: LS_PROP.PARTICIPANT_NAME,
             type: 'text',
             label: 'Name'
@@ -37,6 +43,18 @@ const settingsForm = new SettingsForm({
             label: 'Expiration time (sec)',
             defaultValue: 15
         },
+        {
+            propName: LS_PROP.UPDATE_INTERVAL,
+            type: 'number',
+            label: 'Update interval (ms)',
+            defaultValue: 5000
+        },
+        {
+            propName: LS_PROP.MAX_DISTANCE_RATIO,
+            type: 'number',
+            label: 'Max distance ratio',
+            defaultValue: 2
+        }
     ],
     onSubmitCallback() {
         participants.run(false);
@@ -53,23 +71,7 @@ runButton.addEventListener('click', () => {
 
 settingsForm.render(settingsWrapper);
 participants.render(participantList);
-// participants.update({
-//     'Владик Стас': {
-//         icon: 'rocket',
-//         current: {},
-//         prev: {}
-//     },
-//     'Dimon': {
-//         icon: 'car',
-//         current: {},
-//         prev: {}
-//     },
-//     'Vitalik': {
-//         icon: 'sport',
-//         current: {},
-//         prev: {}
-//     }
-// });
+
 setIsActiveToLS(false);
 updateViewFromLS();
 clearOutdatedIds();

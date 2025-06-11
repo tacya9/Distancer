@@ -40,7 +40,7 @@ export function getIsActiveFromLS() {
 export function getSettingFromLS(propName, defaultValue = null) {
     const lsSettings = getItemFromLS(LS_SETTINGS_NAME);
 
-    return lsSettings ? lsSettings[propName] : defaultValue;
+    return lsSettings && lsSettings[propName] !== undefined ? lsSettings[propName] : defaultValue;
 }
 
 export function setIsActiveToLS(value) {
