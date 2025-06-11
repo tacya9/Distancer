@@ -7,87 +7,8 @@
 	border: 4px solid white;
 	border-radius: 40px;
 	box-sizing: border-box;
-	//padding-bottom: 6px;
 
-	& .c-distance__meanings {
-		margin-top: -12px;
-	}
-
-	&.m-danger {
-		background: #E61610;
-	}
-}
-.c-distance__title {
-	font-family: 'Chivo Mono';
-	font-weight: normal;
-	font-size: 24px;
-	line-height: 30px;
-	text-align: center;
-	letter-spacing: -2px;
-}
-.c-distance__meanings {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: relative;
-	margin-bottom: -4px;
-}
-.c-distance__min {
-	font-family: 'Chivo Mono';
-	font-weight: bold;
-	font-size: 30px;
-	line-height: 42px;
-	position: relative;
-
-	&::before {
-		content: 'min';
-		position: absolute;
-		font-family: 'Chivo Mono';
-		font-weight: normal;
-		font-size: 24px;
-		top: -16px;
-		left: 8px;
-		line-height: 1;
-		letter-spacing: -2px;
-	}
-}
-.c-distance__real {
-	font-family: 'Chivo Mono';
-	font-weight: bold;
-	font-size: 60px;
-	line-height: 68px;
-}
-.c-distance__max {
-	font-family: 'Chivo Mono';
-	font-weight: bold;
-	font-size: 30px;
-	line-height: 42px;
-	position: relative;
-
-	&::before {
-		content: 'max';
-		position: absolute;
-		font-family: 'Chivo Mono';
-		font-weight: normal;
-		font-size: 24px;
-		top: -16px;
-		right: 8px;
-		line-height: 1;
-		letter-spacing: -2px;
-	}
-}
-.c-distance {
-	position: relative;
-	color: white;
-	max-width: 268px;
-	margin: 0 auto;
-	background: #629C44;
-	border: 4px solid white;
-	border-radius: 40px;
-	box-sizing: border-box;
-	//padding-bottom: 6px;
-
-	& .c-distance__meanings {
+	.c-distance__meanings {
 		margin-top: -12px;
 	}
 

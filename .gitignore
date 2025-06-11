@@ -1,3 +1,5 @@
 node_modules/
 .idea/
 .firebase/
+public/styles/index.css
+public/styles/index.css.map
