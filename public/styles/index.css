@@ -350,14 +350,171 @@ body {
   height: 100vh;
 }
 
+.c-distance {
+  position: relative;
+  color: white;
+  max-width: 268px;
+  margin: 0 auto;
+  background: #629C44;
+  border: 4px solid white;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+.c-distance .c-distance__meanings {
+  margin-top: -12px;
+}
+.c-distance.m-danger {
+  background: #E61610;
+}
+
+.c-distance__title {
+  font-family: "Chivo Mono";
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: -2px;
+}
+
+.c-distance__meanings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: -4px;
+}
+
+.c-distance__min {
+  font-family: "Chivo Mono";
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 42px;
+  position: relative;
+}
+.c-distance__min::before {
+  content: "min";
+  position: absolute;
+  font-family: "Chivo Mono";
+  font-weight: normal;
+  font-size: 24px;
+  top: -16px;
+  left: 8px;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.c-distance__real {
+  font-family: "Chivo Mono";
+  font-weight: bold;
+  font-size: 60px;
+  line-height: 68px;
+}
+
+.c-distance__max {
+  font-family: "Chivo Mono";
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 42px;
+  position: relative;
+}
+.c-distance__max::before {
+  content: "max";
+  position: absolute;
+  font-family: "Chivo Mono";
+  font-weight: normal;
+  font-size: 24px;
+  top: -16px;
+  right: 8px;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.c-distance {
+  position: relative;
+  color: white;
+  max-width: 268px;
+  margin: 0 auto;
+  background: #629C44;
+  border: 4px solid white;
+  border-radius: 40px;
+  box-sizing: border-box;
+}
+.c-distance .c-distance__meanings {
+  margin-top: -12px;
+}
+.c-distance.m-danger {
+  background: #E61610;
+}
+
+.c-distance__title {
+  font-family: "Chivo Mono";
+  font-weight: normal;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: -2px;
+}
+
+.c-distance__meanings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: -4px;
+}
+
+.c-distance__min {
+  font-family: "Chivo Mono";
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 42px;
+  position: relative;
+}
+.c-distance__min::before {
+  content: "min";
+  position: absolute;
+  font-family: "Chivo Mono";
+  font-weight: normal;
+  font-size: 24px;
+  top: -16px;
+  left: 8px;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.c-distance__real {
+  font-family: "Chivo Mono";
+  font-weight: bold;
+  font-size: 60px;
+  line-height: 68px;
+}
+
+.c-distance__max {
+  font-family: "Chivo Mono";
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 42px;
+  position: relative;
+}
+.c-distance__max::before {
+  content: "max";
+  position: absolute;
+  font-family: "Chivo Mono";
+  font-weight: normal;
+  font-size: 24px;
+  top: -16px;
+  right: 8px;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
 .c-participant {
   border: 4px solid white;
-  border-radius: 10px;
+  border-radius: 12px;
   box-sizing: border-box;
   background: white;
   color: black;
   position: relative;
-  z-index: 100;
   display: grid;
   grid-template-columns: 92px 1fr 1fr;
   grid-template-rows: 45px 51px;
@@ -560,19 +717,61 @@ body {
   z-index: 1;
 }
 
+.c-layout__header-participant {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  max-width: 393px;
+  padding: 10px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
 .c-layout__header-participant-name {
+  font-family: "Ubuntu";
+  font-weight: bold;
   color: white;
   font-size: 36px;
-  font-weight: bold;
+  line-height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c-layout__header-participant-menu {
+  position: relative;
+  border: 2px solid white;
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+  box-sizing: border-box;
+  background: transparent;
+}
+.c-layout__header-participant-menu::before {
+  content: "\f013";
+  font-family: "Font Awesome 6 Free";
+  position: absolute;
+  font-size: 30px;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .c-layout__list {
   padding-top: 110px;
+  padding-bottom: 62px;
 }
 
 .c-layout__info {
   max-width: 373px;
-  margin: 0 auto;
+  margin: 62px auto 0 auto;
+}
+.c-layout__info:first-child {
+  margin-top: 0;
+}
+.c-layout__info > .c-distance {
+  margin-bottom: 62px;
 }
 
 /*# sourceMappingURL=index.css.map */
