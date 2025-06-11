@@ -1,14 +1,15 @@
-export const UPDATE_INTERVAL = 5000; // ms
-
 export const LS_SETTINGS_NAME = 'distancer.settings';
-export const LS_ACTIVE_NAME = 'distancer.isActive';
+export const LS_ACTIVE_NAME = 'distancer.isActive'; // 'true' means that app is working and gps data is sending
 
 export const LS_PROP = {
     DISTANCER_ID: 'distancerId',
     PARTICIPANT_ICON: 'participantIcon',
+    PARTICIPANT_COLOR: 'participantColor',
     PARTICIPANT_NAME: 'participantName',
     IS_ACTIVE_SCREEN: 'isActiveScreen',
-    EXPIRATION_TIME: 'expirationTime'
+    EXPIRATION_TIME: 'expirationTime',
+    UPDATE_INTERVAL: 'updateInterval',
+    MAX_DISTANCE_RATIO: 'maxDistanceRatio'
 }
 
 export const FIREBASE_ID_SET = 'idSet';
@@ -17,7 +18,9 @@ export class Participant {
     constructor(props) {
         const {
             name = '',
+            isActive = false,
             icon = '',
+            color = '',
             distToHead = null,
             distance = null,
             current = {},
@@ -26,7 +29,9 @@ export class Participant {
         } = props;
 
         this.name = name;
+        this.isActive = isActive;
         this.icon = icon;
+        this.color = color;
         this.distToHead = distToHead;
         this.distance = distance;
         this.current = {
