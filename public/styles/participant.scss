@@ -1,11 +1,10 @@
 .c-participant {
 	border: 4px solid white;
-	border-radius: 10px;
+	border-radius: 12px;
 	box-sizing: border-box;
 	background: white;
 	color: black;
 	position: relative;
-	z-index: 100;
 	display: grid;
 	grid-template-columns: 92px 1fr 1fr;
 	grid-template-rows: 45px 51px;

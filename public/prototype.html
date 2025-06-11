@@ -14,8 +14,8 @@
 	</div>
 	<header class="c-layout__header">
 		<div class="c-layout__header-participant">
-			<span class="c-layout__header-participant-name">Влад</span>
-			<span class="c-layout__header-participant-menu"></span>
+			<div class="c-layout__header-participant-name">Влад</div>
+			<button class="c-layout__header-participant-menu"></button>
 		</div>
 	</header>
 	<main class="c-layout__main">
@@ -30,14 +30,38 @@
 				</div>
 			</li>
 			<li class="c-layout__info">
-				<div class="c-distance"></div>
-<!--				<div class="c-participant">-->
-<!--					<div class="c-participant__logo">car</div>-->
-<!--					<div class="c-participant__name">Vlad</div>-->
-<!--					<div class="c-participant__accuracy">+-1020</div>-->
-<!--					<div class="c-participant__speed">096</div>-->
-<!--					<div class="c-participant__altitude">1020</div>-->
-<!--				</div>-->
+				<div class="c-distance">
+					<div class="c-distance__title">distance(m)</div>
+					<div class="c-distance__meanings">
+						<div class="c-distance__min">020<</div>
+						<div class="c-distance__real">083</div>
+						<div class="c-distance__max"><106</div>
+					</div>
+				</div>
+				<div class="c-participant m-dark-mode" style="background: #1464F6">
+					<div class="c-participant__icon"></div>
+					<div class="c-participant__name">Дима</div>
+					<div class="c-participant__accuracy">±1020</div>
+					<div class="c-participant__speed">102</div>
+					<div class="c-participant__altitude">0682</div>
+				</div>
+			</li>
+			<li class="c-layout__info">
+				<div class="c-distance m-danger">
+					<div class="c-distance__title">distance(m)</div>
+					<div class="c-distance__meanings">
+						<div class="c-distance__min">020<</div>
+						<div class="c-distance__real">108</div>
+						<div class="c-distance__max"><106</div>
+					</div>
+				</div>
+				<div class="c-participant">
+					<div class="c-participant__icon"></div>
+					<div class="c-participant__name">Виталик</div>
+					<div class="c-participant__accuracy">±1020</div>
+					<div class="c-participant__speed">102</div>
+					<div class="c-participant__altitude">0682</div>
+				</div>
 			</li>
 		</ul>
 	</main>
