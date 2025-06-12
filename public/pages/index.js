@@ -5,6 +5,9 @@ import {clearOutdatedIds, getIsActiveFromLS, setIsActiveToLS, updateViewFromLS} 
 import Participants from "../components/participants/participants.js";
 
 const runButton = document.getElementById('runButton');
+const openModalButton = document.getElementById('openModalButton');
+const closeModalButton = document.getElementById('closeModalButton');
+const modal = document.getElementById('modal');
 const participantList = document.getElementById('participantList');
 const participants = new Participants();
 const settingsWrapper = document.getElementById('settingsForm');
@@ -13,46 +16,47 @@ const settingsForm = new SettingsForm({
         {
             propName: LS_PROP.DISTANCER_ID,
             type: 'text',
-            label: 'Distancer ID'
+            label: 'Идентификатор'
         },
         {
             propName: LS_PROP.PARTICIPANT_ICON,
             type: 'text',
-            label: 'Icon'
+            label: '<a href="https://fontawesome.com/search?o=r&ic=free&s=solid&ip=classic" target="_blank">Название иконки</a>',
+            defaultValue: 'car'
         },
         {
             propName: LS_PROP.PARTICIPANT_COLOR,
             type: 'color',
-            label: 'Color',
+            label: 'Цвет',
             defaultValue: '#ffffff'
         },
         {
             propName: LS_PROP.PARTICIPANT_NAME,
             type: 'text',
-            label: 'Name'
+            label: 'Имя'
         },
         {
             propName: LS_PROP.IS_ACTIVE_SCREEN,
             type: 'checkbox',
-            label: 'The display is always active',
+            label: 'Экран всегда включен',
             onApply: handleScreenActivity
         },
         {
             propName: LS_PROP.EXPIRATION_TIME,
             type: 'number',
-            label: 'Expiration time (sec)',
+            label: 'Макс.вр отобр неак.уч, сек',
             defaultValue: 15
         },
         {
             propName: LS_PROP.UPDATE_INTERVAL,
             type: 'number',
-            label: 'Update interval (ms)',
+            label: 'Время обновления данных, мс',
             defaultValue: 5000
         },
         {
             propName: LS_PROP.MAX_DISTANCE_RATIO,
             type: 'number',
-            label: 'Max distance ratio',
+            label: 'Коэф. макс. дистанции',
             defaultValue: 2
         }
     ],
@@ -67,6 +71,12 @@ runButton.addEventListener('click', () => {
 
     participants.run(isActive);
     setIsActiveToLS(isActive);
+});
+openModalButton.addEventListener('click', () => {
+    modal.classList.add('show');
+});
+closeModalButton.addEventListener('click', () => {
+    modal.classList.remove('show');
 });
 
 settingsForm.render(settingsWrapper);

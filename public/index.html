@@ -6,13 +6,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="/utils/firebase/11.7.1/firebase-app-compat.js"></script>
     <script src="/utils/firebase/11.7.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/index.css">
 </head>
 <body>
 
-<div id="settingsForm"></div>
-<hr />
-<h3><button id="runButton"></button> [<span id="distancerId"></span>] <span id="participantName"></span></h3>
-<div id="participantList"></div>
+<div class="c-layout">
+    <div class="c-layout__background">
+        <div class="c-layout__background-road">
+            <div class="c-layout__background-broken-stripe"></div>
+        </div>
+    </div>
+    <header class="c-layout__header">
+        <div class="c-layout__header-participant">
+            <button id="runButton" class="btn btn-primary"></button>
+            <div class="c-layout__header-participant-name">
+                <span id="distancerId" class="c-layout__header-id"></span>
+                <span id="participantName"></span>
+            </div>
+            <button id="openModalButton" class="btn btn-secondary"><i class="fa-solid fa-gear"></i></button>
+        </div>
+    </header>
+    <main id="participantList" class="c-layout__main"></main>
+</div>
+
+<div id="modal" class="modal fade">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-4">Настройки</h1>
+            </div>
+            <div class="modal-body">
+                <div id="settingsForm"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="closeModalButton" type="button" class="btn btn-secondary">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="module" src="./pages/index.js"></script>
 </body>

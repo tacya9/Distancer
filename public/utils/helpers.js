@@ -17,7 +17,7 @@ export function updateViewFromLS() {
     const distancerIdSpan = document.getElementById('distancerId');
     const participantNameSpan = document.getElementById('participantName');
 
-    runButton.innerText = lsIsActive ? 'stop' : 'start';
+    runButton.innerText = lsIsActive ? 'СТОП' : 'СТАРТ';
 
     if (lsSettings) Object.keys(lsSettings).forEach(key => {
         switch (key) {
@@ -56,8 +56,8 @@ export function setSettingsToLS(newSettings) {
             .then((e) => {
                 console.log('The old participant name has been removed successfully!', e);
             }).catch((e) => {
-                console.log('The old participant name has not been removed');
-            });
+            console.log('The old participant name has not been removed');
+        });
     }
 
     setItemToLS(LS_SETTINGS_NAME, newSettings);
@@ -83,4 +83,20 @@ export function clearOutdatedIds() {
             }
         });
     }, INTERVAL_TO_CLEAR);
+}
+
+export function isDarkColor(hex) {
+    // Убираем возможный #
+    hex = hex.replace(/^#/, "");
+
+    // Преобразуем HEX в RGB
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    // Рассчитываем яркость (по формуле W3C)
+    let brightness = (r * 0.299 + g * 0.587 + b * 0.114);
+
+    // Если яркость меньше 128, цвет считается тёмным
+    return brightness < 128;
 }
