@@ -7,7 +7,7 @@ import {LS_PROP, Participant} from "../../utils/constants.js";
 
 export default class SettingsForm {
     constructor(props) {
-        const { settings, onSubmitCallback } = props;
+        const {settings, onSubmitCallback} = props;
 
         this.settings = settings; // [{propName, type, label}, ...]
         this.onSubmitCallback = onSubmitCallback;
@@ -21,25 +21,36 @@ export default class SettingsForm {
         this.settings.forEach(setting => {
             const label = document.createElement('label');
             const input = document.createElement('input');
-            const hr = document.createElement('hr');
+
+            input.type = setting.type;
+            input.classList.add('form-control');
+            input.classList.add('h-auto');
 
             if (setting.type === 'checkbox') {
                 input.checked = getSettingFromLS(setting.propName, setting.defaultValue);
+                input.classList.add('form-check-input');
+                input.classList.add('m-0');
+
             } else {
                 input.value = getSettingFromLS(setting.propName, setting.defaultValue);
             }
 
-            input.type = setting.type;
-            label.innerText = setting.label;
+            label.classList.add('input-group');
+            label.classList.add('mb-3');
+            label.innerHTML = `<span class="input-group-text">${setting.label}</span>`;
             label.appendChild(input);
+
             form.appendChild(label);
-            form.appendChild(hr);
 
             setting.input = input;
         });
 
         submitButton.type = 'submit';
-        submitButton.innerText = 'submit';
+        submitButton.innerText = 'Применить';
+        submitButton.classList.add('btn');
+        submitButton.classList.add('btn-primary');
+        submitButton.classList.add('float-end');
+
         form.setAttribute('novalidate', '');
         form.appendChild(submitButton);
         form.addEventListener('submit', (e) => {

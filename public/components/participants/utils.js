@@ -2,14 +2,21 @@ import {LS_PROP, Participant} from "../../utils/constants.js";
 import {firebaseDB, getLastUpdateRef} from "../../utils/firebase/firebase.js";
 import {getSettingFromLS} from "../../utils/helpers.js";
 
+let lastSendingTime = -1;
+
 export function sendDataToFirebase(ref, dataToSend, callback) {
     const distancerId = getSettingFromLS(LS_PROP.DISTANCER_ID);
-        
+
     if (firebaseDB) {
         firebaseDB.ref(ref).set(dataToSend)
             .then(() => {
-                console.log('Данные GPS отправлены:', dataToSend);
-                firebaseDB.ref(getLastUpdateRef(distancerId)).set(+new Date());
+                const now = +new Date();
+                const diff = lastSendingTime === -1 ? 0 : now - lastSendingTime;
+
+                lastSendingTime = now;
+                console.log(diff, 'Данные GPS отправлены:', dataToSend);
+
+                firebaseDB.ref(getLastUpdateRef(distancerId)).set(now);
             })
             .catch(error => console.error('Ошибка отправки данных:', error))
             .finally(callback);
@@ -24,15 +31,15 @@ export function getSortedParticipants(distancer) {
     const participantNames = Object.keys(participantObj).filter(key => key === myParticipantName || participantObj[key].isActive);
 
     if (!participantNames.length) return [];
-        //  создать тестовые данные с расстояниями между С-50-B-100-A и скоростью 100км/ч с разными timestamp
-        //            A.c
-        //            A.p
-        //            |
-        //            B.c
-        //            B.p
-        //            |
-        //            С.c
-        //            С.p
+    //  создать тестовые данные с расстояниями между С-50-B-100-A и скоростью 100км/ч с разными timestamp
+    //            A.c
+    //            A.p
+    //            |
+    //            B.c
+    //            B.p
+    //            |
+    //            С.c
+    //            С.p
     // const participantObj = {
     //     "ввв:Dima": {
     //         "current": { // 54.704148, 25.254298
@@ -141,7 +148,7 @@ export function getSortedParticipants(distancer) {
     //         }
     //     }
     // }
-    
+
     let syncTimestamp = 0;
     const participants = participantNames.map(name => {
         if (participantObj[name].current?.timestamp > syncTimestamp) syncTimestamp = participantObj[name].current.timestamp;
@@ -155,14 +162,14 @@ export function getSortedParticipants(distancer) {
             distance: null,
             current: participantObj[name].current,
             prev: participantObj[name].prev,
-            sync: {
+            sync: participantObj[name].current ? {
                 latitude: null,
                 longitude: null,
                 speed: participantObj[name].current.speed,
                 altitude: participantObj[name].current.altitude,
                 accuracy: participantObj[name].current.accuracy,
                 timestamp: 0,
-            }
+            } : {}
         })
     });
 
@@ -187,8 +194,8 @@ export function getSortedParticipants(distancer) {
         };
 
         participant.sync.timestamp = syncTimestamp;
-        participant.sync.latitude = +predictCoordinates.latitude.toFixed(6);
-        participant.sync.longitude = +predictCoordinates.longitude.toFixed(6);
+        participant.sync.latitude = predictCoordinates.latitude ? +predictCoordinates.latitude.toFixed(6) : null;
+        participant.sync.longitude = predictCoordinates.longitude ? +predictCoordinates.longitude.toFixed(6) : null;
     })
 
     const head = participants[0];
@@ -249,7 +256,7 @@ function getMaxDistance(speedMps) {
     if (speedMps >= 0) {
         // const RATIO = 2;
         const RATIO = getSettingFromLS(LS_PROP.MAX_DISTANCE_RATIO);
-        const MIN_DISTANCE = 20;
+        const MIN_DISTANCE = 10 * RATIO;
         const distance = getSafeDistance(speedMps) * RATIO;
 
         return distance > MIN_DISTANCE ? distance : MIN_DISTANCE;

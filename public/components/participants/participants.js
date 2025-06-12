@@ -4,7 +4,7 @@ import {
     getIsParticipantActiveRef,
     processMyData
 } from "../../utils/firebase/firebase.js";
-import {getSettingFromLS} from "../../utils/helpers.js";
+import {getSettingFromLS, isDarkColor} from "../../utils/helpers.js";
 import {LS_PROP} from "../../utils/constants.js";
 
 export const globalParticipantObj = {};
@@ -19,8 +19,11 @@ export default class Participants {
     createParticipants() {
         const ul = document.createElement('ul');
 
+        ul.classList.add('c-layout__list');
+
         return ul;
     }
+
     run(isActive) {
         if (isActive) {
             const processId = processMyData(() => fetchData(this.update.bind(this)));
@@ -33,26 +36,58 @@ export default class Participants {
             this.element.innerHTML = '';
         }
     }
+
     update(distancer) { // distancer - object from the Realtime DB
         const participants = getSortedParticipants(distancer);
         const participantInfos = getParticipantInfos(participants);
 
         this.element.innerHTML = '';
 
-        participantInfos.forEach(participant => {
+        participantInfos.forEach((participant, index) => {
             const li = document.createElement('li');
-            const distanceDiv = document.createElement('div');
             const participantDiv = document.createElement('div');
             const timeDiff = +new Date() - participant.timestamp;
 
-            distanceDiv.innerText = `${participant.minDistance} < ${participant.distance} < ${participant.maxDistance}`;
-            participantDiv.innerHTML = `${participant.icon} - ${participant.name} - 
-acc:${participant.accuracy} - speed:${participant.speed} - alt:${participant.altitude} - time:${new Date(participant.timestamp).toLocaleTimeString()} -
-coords: <input readonly value="${participant.latitude}, ${participant.longitude}" />`;
+            li.classList.add('c-layout__info');
 
-            if (participant.color) li.style.background = participant.color;
+            if (index > 0) {
+                const distanceDiv = document.createElement('div');
 
-            li.appendChild(distanceDiv);
+                distanceDiv.classList.add('c-distance');
+                distanceDiv.innerHTML = `
+                    <div class="c-distance__title">distance(m)</div>
+                    <div class="c-distance__meanings">
+                        <div class="c-distance__min">${participant.minDistance}</div>
+                        <div class="c-distance__char"><</div>
+                        <div class="c-distance__real">${participant.distance}</div>
+                        <div class="c-distance__char"><</div>
+                        <div class="c-distance__max">${participant.maxDistance}</div>
+                    </div>
+                `;
+
+                li.appendChild(distanceDiv);
+            }
+
+            participantDiv.classList.add('c-participant');
+            participantDiv.innerHTML = `
+                <div class="c-participant__icon"><i class="fa-solid fa-${participant.icon}"></i></div>
+                <div class="c-participant__name">${participant.name}</div>
+                <div class="c-participant__accuracy">±${participant.accuracy}</div>
+                <div class="c-participant__speed">${participant.speed}</div>
+                <div class="c-participant__altitude">${participant.altitude}</div>
+            `;
+            if (participant.color) {
+                participantDiv.style.background = participant.color;
+
+                if (isDarkColor(participant.color)) {
+                    participantDiv.classList.add('m-dark-mode');
+                }
+            }
+
+//             participantDiv.innerHTML = ` -  -
+// acc: - speed: - alt: - time:${new Date(participant.timestamp).toLocaleTimeString()} -
+// coords: <input readonly value="${participant.latitude}, ${participant.longitude}" />`;
+
             li.appendChild(participantDiv);
 
             this.element.appendChild(li);
@@ -76,9 +111,11 @@ coords: <input readonly value="${participant.latitude}, ${participant.longitude}
         //
         // this.element.appendChild(consoleLogLi);
     }
+
     disableParticipant(name) {
         sendDataToFirebase(getIsParticipantActiveRef(getSettingFromLS(LS_PROP.DISTANCER_ID), name), false)
     }
+
     render(parent) {
         return parent ? parent.appendChild(this.element) : this.element;
     }

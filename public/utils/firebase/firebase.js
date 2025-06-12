@@ -19,6 +19,7 @@ const firebaseConfig = {
     measurementId: "G-PE0K93QP5Y"
 };
 
+let lastGettingTime = -1;
 let lastPosTimestamp = 0;
 let app;
 export let firebaseDB;
@@ -45,7 +46,7 @@ export function processMyData(callback) {
                     return;
                 }
 
-                const { latitude, longitude, speed, altitude, accuracy } = position.coords;
+                const {latitude, longitude, speed, altitude, accuracy} = position.coords;
                 const dataToSend = new Participant({
                     isActive: true,
                     icon: getSettingFromLS(LS_PROP.PARTICIPANT_ICON),
@@ -55,7 +56,7 @@ export function processMyData(callback) {
                         longitude: +longitude.toFixed(6),
                         speed: speed !== null ? +speed.toFixed(2) : 0,
                         altitude: altitude !== null ? +altitude.toFixed(2) : 0,
-                        accuracy: +accuracy.toFixed(2),
+                        accuracy: +accuracy.toFixed(0),
                         timestamp: position.timestamp
                     },
                     prev: globalParticipantObj.participant && globalParticipantObj.participant[participantName] ? globalParticipantObj.participant[participantName].current : {}
@@ -93,12 +94,17 @@ export function fetchData(callback) {
     if (firebaseDB) {
         firebaseDB.ref(getDistancerIdRef(distancerId)).get().then(snapshot => {
             if (snapshot.exists()) {
+                const now = +new Date();
+                const diff = now - lastGettingTime;
                 const distancer = snapshot.val();
 
                 globalParticipantObj.lastUpdate = distancer.lastUpdate;
                 globalParticipantObj.participant = distancer.participant;
 
                 callback(distancer);
+
+                console.log(diff, 'fetchData: data received');
+                lastGettingTime = now;
             } else {
                 console.log("fetchData: No data available");
             }
