@@ -65,6 +65,10 @@ export default class Participants {
                     </div>
                 `;
 
+                if (participant.distance > participant.maxDistance) {
+                    distanceDiv.classList.add('m-danger');
+                }
+
                 li.appendChild(distanceDiv);
             }
 
@@ -76,6 +80,10 @@ export default class Participants {
                 <div class="c-participant__speed">${participant.speed}</div>
                 <div class="c-participant__altitude">${participant.altitude}</div>
             `;
+
+            if (participant.name !== getSettingFromLS(LS_PROP.PARTICIPANT_NAME) && timeDiff > getSettingFromLS(LS_PROP.EXPIRATION_TIME) * 1000 / 2) {
+                participantDiv.classList.add('m-offline');
+            }
             if (participant.color) {
                 participantDiv.style.background = participant.color;
 

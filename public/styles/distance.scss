@@ -23,13 +23,15 @@
   border-radius: 40px;
   box-sizing: border-box;
   outline: 0 solid #E61610;
+  max-width: 100%;
+  overflow: hidden;
+  //transition: outline 1s cubic-bezier(1, -0.1, 1, 1);
 
   &.m-danger {
     background: #E61610;
     animation: intense-pulse 1.5s infinite cubic-bezier(0.4, 0, 0.6, 1);
-    outline: 500px solid rgba(230, 22, 16, 0);
-    z-index: 1;
-    transition: outline 1s cubic-bezier(1, -0.1, 1, 1);
+    //outline: 500px solid rgba(230, 22, 16, 0);
+    //z-index: 1;
   }
 
   .c-distance__meanings {
