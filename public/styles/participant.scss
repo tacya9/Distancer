@@ -13,6 +13,9 @@
   &.m-dark-mode {
     color: white;
   }
+  &.m-offline {
+    opacity: 0.5;
+  }
 }
 
 .c-participant__icon {
@@ -85,6 +88,7 @@
   line-height: 39px;
   padding-top: 6px;
   background: inherit;
+  border-radius: inherit;
 
   &::before {
     content: '\f689';
