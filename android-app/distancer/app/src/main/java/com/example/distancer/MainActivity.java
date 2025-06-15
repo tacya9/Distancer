@@ -10,6 +10,7 @@ import android.view.WindowManager;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -24,6 +25,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // Запускаем фоновый сервис
+//        Intent serviceIntent = new Intent(this, MyBackgroundService.class);
+//        startForegroundService(serviceIntent);
+
+//        Intent serviceIntent = new Intent(this, LocationService.class);
+//        ContextCompat.startForegroundService(this, serviceIntent);
+
+
         // Запрашиваем разрешение на геолокацию, если нужно
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -31,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_LOCATION);
         }
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.FOREGROUND_SERVICE_LOCATION)
+//                != PackageManager.PERMISSION_GRANTED) {
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.FOREGROUND_SERVICE_LOCATION},
+//                    REQUEST_LOCATION);
+//        }
 
         // Отключаем спящий режим
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

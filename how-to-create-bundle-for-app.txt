@@ -1,0 +1,7 @@
+1) run: npx webpack
+2) copy from the folder "dist" and the folder "public" to the folder "android-app/distancer/app/src/main/assets":
+- assets/fonts/...all-fonts...
+- styles/index.css
+- bundle.js
+- index.html
+3) and then you need to run the Android Studio to build the app

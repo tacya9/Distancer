@@ -9,7 +9,8 @@ export const LS_PROP = {
     IS_ACTIVE_SCREEN: 'isActiveScreen',
     EXPIRATION_TIME: 'expirationTime',
     UPDATE_INTERVAL: 'updateInterval',
-    MAX_DISTANCE_RATIO: 'maxDistanceRatio'
+    MAX_DISTANCE_RATIO: 'maxDistanceRatio',
+    IS_NOW_DATE: 'isNowDate'
 }
 
 export const FIREBASE_ID_SET = 'idSet';

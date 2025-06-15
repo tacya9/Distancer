@@ -17,8 +17,10 @@ export default class SettingsForm {
     createForm() {
         const form = document.createElement('form');
         const submitButton = document.createElement('button');
+        const devCheckboxLabel = document.createElement('label');
+        const devCheckbox = document.createElement('input');
 
-        this.settings.forEach(setting => {
+        this.settings.forEach((setting, index) => {
             const label = document.createElement('label');
             const input = document.createElement('input');
 
@@ -30,7 +32,6 @@ export default class SettingsForm {
                 input.checked = getSettingFromLS(setting.propName, setting.defaultValue);
                 input.classList.add('form-check-input');
                 input.classList.add('m-0');
-
             } else {
                 input.value = getSettingFromLS(setting.propName, setting.defaultValue);
             }
@@ -50,6 +51,15 @@ export default class SettingsForm {
         submitButton.classList.add('btn');
         submitButton.classList.add('btn-primary');
         submitButton.classList.add('float-end');
+
+        devCheckbox.type = 'checkbox';
+        devCheckbox.checked = false;
+        devCheckbox.classList.add('c-dev-settings-toggle');
+
+        devCheckboxLabel.classList.add('form-switch');
+        devCheckboxLabel.innerHTML = `<input type="checkbox" class="c-dev-settings-toggle form-check-input" /> Углубленные настройки`;
+
+        form.appendChild(devCheckboxLabel);
 
         form.setAttribute('novalidate', '');
         form.appendChild(submitButton);
