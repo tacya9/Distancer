@@ -51,18 +51,25 @@ const settingsForm = new SettingsForm({
             propName: LS_PROP.UPDATE_INTERVAL,
             type: 'number',
             label: 'Время обновления данных, мс',
-            defaultValue: 5000
+            defaultValue: 2000
         },
         {
             propName: LS_PROP.MAX_DISTANCE_RATIO,
             type: 'number',
             label: 'Коэф. макс. дистанции',
             defaultValue: 2
+        },
+        {
+            propName: LS_PROP.IS_NOW_DATE,
+            type: 'checkbox',
+            label: 'Учесть вр.погрешность',
+            defaultValue: false
         }
     ],
     onSubmitCallback() {
         participants.run(false);
         setIsActiveToLS(false);
+        modal.classList.remove('show');
     }
 });
 

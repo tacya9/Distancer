@@ -47,6 +47,7 @@ export function processMyData(callback) {
                 }
 
                 const {latitude, longitude, speed, altitude, accuracy} = position.coords;
+                const now = +new Date();
                 const dataToSend = new Participant({
                     isActive: true,
                     icon: getSettingFromLS(LS_PROP.PARTICIPANT_ICON),
@@ -55,14 +56,14 @@ export function processMyData(callback) {
                         latitude: +latitude.toFixed(6),
                         longitude: +longitude.toFixed(6),
                         speed: speed !== null ? +speed.toFixed(2) : 0,
-                        altitude: altitude !== null ? +altitude.toFixed(2) : 0,
+                        altitude: altitude !== null ? +altitude.toFixed(0) : 0,
                         accuracy: +accuracy.toFixed(0),
-                        timestamp: position.timestamp
+                        timestamp: getSettingFromLS(LS_PROP.IS_NOW_DATE) ? now : position.timestamp
                     },
                     prev: globalParticipantObj.participant && globalParticipantObj.participant[participantName] ? globalParticipantObj.participant[participantName].current : {}
                 });
 
-                lastPosTimestamp = position.timestamp;
+                lastPosTimestamp = getSettingFromLS(LS_PROP.IS_NOW_DATE) ? now : position.timestamp;
 
                 sendDataToFirebase(getParticipantRef(distancerId, participantName), dataToSend, callback);
             },
