@@ -100,3 +100,16 @@ export function isDarkColor(hex) {
     // Если яркость меньше 128, цвет считается тёмным
     return brightness < 128;
 }
+
+export function playAlert(soundName) {
+    const audio = document.createElement('audio');
+
+    audio.src = `sounds/${soundName}.wav`;
+    document.body.appendChild(audio);
+
+    setTimeout(() => {
+        audio.play().then(() => {
+            setTimeout(() => audio.remove(), 1000);
+        })
+    }, 100);
+}
