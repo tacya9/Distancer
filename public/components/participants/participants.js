@@ -4,7 +4,7 @@ import {
     getIsParticipantActiveRef,
     processMyData
 } from "../../utils/firebase/firebase.js";
-import {getSettingFromLS, isDarkColor} from "../../utils/helpers.js";
+import {getSettingFromLS, isDarkColor, playAlert} from "../../utils/helpers.js";
 import {LS_PROP} from "../../utils/constants.js";
 
 export const globalParticipantObj = {};
@@ -67,6 +67,13 @@ export default class Participants {
 
                 if (participant.distance > participant.maxDistance) {
                     distanceDiv.classList.add('m-danger');
+
+                    if (getSettingFromLS(LS_PROP.NOTIFICATION)) {
+                        distanceDiv.classList.add('m-notification');
+                    }
+                    if (getSettingFromLS(LS_PROP.SOUND)) {
+                        playAlert('alert');
+                    }
                 }
 
                 li.appendChild(distanceDiv);
@@ -83,6 +90,10 @@ export default class Participants {
 
             if (participant.name !== getSettingFromLS(LS_PROP.PARTICIPANT_NAME) && timeDiff > getSettingFromLS(LS_PROP.EXPIRATION_TIME) * 1000 / 2) {
                 participantDiv.classList.add('m-offline');
+
+                if (getSettingFromLS(LS_PROP.SOUND)) {
+                    playAlert('notification');
+                }
             }
             if (participant.color) {
                 participantDiv.style.background = participant.color;

@@ -36,6 +36,18 @@ const settingsForm = new SettingsForm({
             label: 'Имя'
         },
         {
+            propName: LS_PROP.NOTIFICATION,
+            type: 'checkbox',
+            label: 'Включить оповещение',
+            defaultValue: true
+        },
+        {
+            propName: LS_PROP.SOUND,
+            type: 'checkbox',
+            label: 'Включить звук',
+            defaultValue: true
+        },
+        {
             propName: LS_PROP.IS_ACTIVE_SCREEN,
             type: 'checkbox',
             label: 'Экран всегда включен',

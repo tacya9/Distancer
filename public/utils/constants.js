@@ -6,6 +6,8 @@ export const LS_PROP = {
     PARTICIPANT_ICON: 'participantIcon',
     PARTICIPANT_COLOR: 'participantColor',
     PARTICIPANT_NAME: 'participantName',
+    NOTIFICATION: 'notification',
+    SOUND: 'sound',
     IS_ACTIVE_SCREEN: 'isActiveScreen',
     EXPIRATION_TIME: 'expirationTime',
     UPDATE_INTERVAL: 'updateInterval',
